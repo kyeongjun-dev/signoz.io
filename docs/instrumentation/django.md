@@ -171,6 +171,24 @@ You can check the supported versions [here](https://github.com/open-telemetry/op
 
 :::
 
+### SQLite3
+
+When you use SQLite3 in Django for test or demo, You can encounter error message like below.
+```
+django.db.utils.ProgrammingError: Base Connection.__init__ not called.
+```
+
+To solve this issue, you can set environment value.
+```
+OTEL_PYTHON_DISABLED_INSTRUMENTATIONS=sqlite3
+```
+
+Or you can add this to run command:
+```
+OTEL_PYTHON_DISABLED_INSTRUMENTATIONS=sqlite3 OTEL_RESOURCE_ATTRIBUTES=service.name=<service_name> OTEL_EXPORTER_OTLP_ENDPOINT="http://<IP of SigNoz Backend>:4318"  opentelemetry-instrument --traces_exporter otlp_proto_http --metrics_exporter otlp_proto_http <your run command>
+```
+
+Please refer [here](https://github.com/open-telemetry/opentelemetry-python-contrib/issues/1179#issuecomment-1175043456)
 
 <p>&nbsp;</p>
 
